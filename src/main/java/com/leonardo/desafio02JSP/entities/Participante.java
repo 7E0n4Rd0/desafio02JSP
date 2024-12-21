@@ -2,6 +2,8 @@ package com.leonardo.desafio02JSP.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,15 +12,21 @@ public class Participante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String nome;
     @Column(unique = true)
     private String email;
 
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+            joinColumns = @JoinColumn(name = "participante_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    private List<Atividade> atividades = new ArrayList<>();
+
     public Participante(){}
 
-    public Participante(Integer id, String name, String email) {
+    public Participante(Integer id, String nome, String email) {
         this.id = id;
-        this.name = name;
+        this.nome = nome;
         this.email = email;
     }
 
@@ -30,12 +38,12 @@ public class Participante {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {
