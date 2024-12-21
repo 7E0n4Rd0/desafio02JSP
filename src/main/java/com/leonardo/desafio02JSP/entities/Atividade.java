@@ -20,6 +20,10 @@ public class Atividade {
     @ManyToMany(mappedBy = "atividades")
     private List<Participante> participantes = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     public Atividade(){}
 
     public Atividade(Integer id, String nome, String descricao, Double preco) {
